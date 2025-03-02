@@ -70,7 +70,7 @@
 
 // export default Billing;
 "use client";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import PaymentIframe from "../components/PaymentIframe";
 
@@ -186,4 +186,11 @@ const Billing = () => {
   );
 };
 
-export default Billing;
+// ✅ Wrap in Suspense to fix Next.js CSR error
+export default function BillingPage() {
+  return (
+    <Suspense fallback={<div className="text-center mt-10 text-gray-500">Loading Billing...</div>}>
+      <Billing />
+    </Suspense>
+  );
+}
