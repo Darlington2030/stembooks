@@ -9,7 +9,7 @@ const Categories = ({ selectedCategory, setSelectedCategory }) => {
         <button
           key={category}
           className={`px-4 py-2 rounded-lg ${
-            selectedCategory === category ? "bg-orange text-white" : "bg-gray-light text-black"
+            selectedCategory === category ? "bg-orange text-white" : "bg-white text-black border border-orange"
           }`}
           onClick={() => setSelectedCategory(category)}
         >

@@ -12,7 +12,7 @@ const Pagination = ({ books, currentPage, setCurrentPage, booksPerPage }) => {
   return (
     <div className="flex justify-center items-center mt-6 gap-4">
       <button
-        className={`px-4 py-2 rounded ${currentPage === 1 ? "bg-gray-light text-white cursor-not-allowed" : "bg-yellow text-black"}`}
+        className={`px-4 py-2 rounded ${currentPage === 1 ? "bg-white text-black border border-orange cursor-not-allowed" : "bg-yellow text-black"}`}
         onClick={prevPage}
         disabled={currentPage === 1}
       >
@@ -22,7 +22,7 @@ const Pagination = ({ books, currentPage, setCurrentPage, booksPerPage }) => {
       <span className="text-black text-lg font-bold">{currentPage} / {totalPages}</span>
 
       <button
-        className={`px-4 py-2 rounded ${currentPage === totalPages ? "bg-gray-light text-white cursor-not-allowed" : "bg-yellow text-black"}`}
+        className={`px-4 py-2 rounded ${currentPage === totalPages ? "bg-white text-black border border-orange cursor-not-allowed" : "bg-yellow text-black"}`}
         onClick={nextPage}
         disabled={currentPage === totalPages}
       >

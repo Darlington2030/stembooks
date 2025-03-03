@@ -1,60 +1,3 @@
-// "use client";
-// import { createContext, useState, useContext, useEffect } from "react";
-
-// const CartContext = createContext();
-
-// export const CartProvider = ({ children }) => {
-//   const [cart, setCart] = useState([]);
-
-//   useEffect(() => {
-//     const storedCart = JSON.parse(localStorage.getItem("cart"));
-//     if (storedCart) setCart(storedCart);
-//   }, []);
-
-//   useEffect(() => {
-//     localStorage.setItem("cart", JSON.stringify(cart));
-//   }, [cart]);
-
-//   const addToCart = (book) => {
-//     setCart([...cart, book]);
-//   };
-
-//   const removeFromCart = (id) => {
-//     setCart(cart.filter((item) => item.id !== id));
-//   };
-
-//   return (
-//     <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
-//       {children}
-//     </CartContext.Provider>
-//   );
-// };
-
-// export const useCart = () => useContext(CartContext);
-
-
-// "use client";
-// import { createContext, useContext, useState } from "react";
-
-// const CartContext = createContext();
-
-// export const CartProvider = ({ children }) => {
-//   const [cart, setCart] = useState([]);
-
-//   const addToCart = (book) => {
-//     setCart((prevCart) => [...prevCart, book]);
-//   };
-
-//   return (
-//     <CartContext.Provider value={{ cart, addToCart }}>
-//       {children}
-//     </CartContext.Provider>
-//   );
-// };
-
-// export const useCart = () => {
-//   return useContext(CartContext);
-// };
 "use client";
 
 import React, { createContext, useState, useEffect, useContext } from "react";
@@ -86,7 +29,7 @@ export const CartProvider = ({ children }) => {
     }
   }, [cart]);
 
-  // ✅ Add item to cart (increase quantity if exists)
+  //  Add item to cart (increase quantity if exists)
   const addToCart = (item) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find((cartItem) => cartItem.id === item.id);
@@ -99,7 +42,7 @@ export const CartProvider = ({ children }) => {
     });
   };
 
-  // ✅ Remove item (reduce quantity, delete if 1 left)
+  //  Remove item (reduce quantity, delete if 1 left)
   const removeFromCart = (id) => {
     setCart((prevCart) =>
       prevCart
@@ -110,12 +53,12 @@ export const CartProvider = ({ children }) => {
     );
   };
 
-  // ✅ Delete item completely
+  //  Delete item completely
   const deleteFromCart = (id) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== id));
   };
 
-  // ✅ Clear entire cart
+  //  Clear entire cart
   const clearCart = () => {
     setCart([]);
   };
