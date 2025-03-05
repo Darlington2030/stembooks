@@ -4,7 +4,7 @@ const Categories = ({ selectedCategory, setSelectedCategory }) => {
   const categories = ["All", "Kids", "Teens", "Innovators"];
 
   return (
-    <div className="flex gap-4 justify-center my-6">
+    <div className="flex gap-3 justify-center my-6 text-lg">
       {categories.map((category) => (
         <button
           key={category}
