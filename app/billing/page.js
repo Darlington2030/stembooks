@@ -1,26 +1,25 @@
 "use client";
-import { useState, Suspense } from "react";
+import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import PaymentIframe from "../components/PaymentIframe";
 
-const BillingContent = () => {
+const Billing = () => {
   const searchParams = useSearchParams();
   const totalCost = searchParams.get("totalCost");
 
   const [paymentUrl, setPaymentUrl] = useState("");
   const [formData, setFormData] = useState({
+    phone_number: "",
+    email_address: "",
     first_name: "",
     last_name: "",
-    email_address: "",
-    phone_number: "",
-    pages: "",
-    color_type: "Black & White",
-    size: "A4",
-    orientation: "Portrait",
   });
 
   const handleFormChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const submitOrder = async (e) => {
@@ -30,7 +29,9 @@ const BillingContent = () => {
         "https://asg-pesapal-c25efa27749a.herokuapp.com/billing/",
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify({
             ...formData,
             amount: totalCost,
@@ -49,157 +50,64 @@ const BillingContent = () => {
   };
 
   return (
-    <div className="text-1xl flex justify-center min-h-screen bg-gray-bg p-4">
-      <div className="w-full max-w-3xl bg-white p-6 rounded-lg shadow-lg">
-        {/* Header */}
-        <h2 className="text-2xl font-bold text-orange text-center mb-4">
-          Billing Details
-        </h2>
-        <p className="text-black text-lg font-semibold text-center mb-4">
-          Total Amount:{" "}
-          <span className="text-orange text-xl font-bold">${totalCost}</span>
+    <div className="flex flex-col items-center min-h-screen p-6 bg-gray-bg">
+      <div className="w-full max-w-lg bg-white p-6 rounded-lg shadow-lg text-center">
+        {/* Total Cost Display */}
+        <h2 className="text-2xl font-bold text-orange">Billing Details</h2>
+        <p className="text-black text-lg font-semibold mt-2">
+          Total Amount: <span className="text-orange text-xl">${totalCost}</span>
         </p>
 
-        {/* Form Layout (Stacked on Mobile, Two Columns on Larger Screens) */}
-        <form
-          onSubmit={submitOrder}
-          className="grid grid-cols-1 md:grid-cols-2 gap-4"
-        >
-          {/* First Name */}
-          <div>
-            <label className="block text-gray-700 font-semibold mb-1">
-              First Name
-            </label>
+        {/* Billing Form */}
+        <form onSubmit={submitOrder} className="mt-4">
+          <div className="space-y-4">
             <input
               type="text"
               name="first_name"
-              placeholder="Enter first name"
+              placeholder="First Name"
               onChange={handleFormChange}
               required
-              className="w-full p-3 border border-yellow rounded-lg bg-white text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange"
             />
-          </div>
-
-          {/* Last Name */}
-          <div>
-            <label className="block text-gray-700 font-semibold mb-1">
-              Last Name
-            </label>
             <input
               type="text"
               name="last_name"
-              placeholder="Enter last name"
+              placeholder="Last Name"
               onChange={handleFormChange}
               required
-              className="w-full p-3 border border-yellow rounded-lg bg-white text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange"
             />
-          </div>
-
-          {/* Email Address */}
-          <div className="md:col-span-2">
-            <label className="block text-gray-700 font-semibold mb-1">
-              Email Address
-            </label>
             <input
               type="email"
               name="email_address"
-              placeholder="Enter your email"
+              placeholder="Email"
               onChange={handleFormChange}
               required
-              className="w-full p-3 border border-yellow rounded-lg bg-white text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange"
             />
-          </div>
-
-          {/* Phone Number */}
-          <div className="md:col-span-2">
-            <label className="block text-gray-700 font-semibold mb-1">
-              Phone Number
-            </label>
             <input
               type="tel"
               name="phone_number"
-              placeholder="Enter phone number"
+              placeholder="Phone Number"
               onChange={handleFormChange}
               required
-              className="w-full p-3 border border-yellow rounded-lg bg-white text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow"
+              className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange"
             />
           </div>
 
-          {/* Number of Pages */}
-          <div>
-            <label className="block text-gray-700 font-semibold mb-1">
-              Number of Pages
-            </label>
-            <input
-              type="number"
-              name="pages"
-              placeholder="Enter number of pages"
-              onChange={handleFormChange}
-              required
-              className="w-full p-3 border border-yellow rounded-lg bg-white text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow"
-            />
-          </div>
-
-          {/* Color Type */}
-          <div>
-            <label className="block text-gray-700 font-semibold mb-1">
-              Color Type
-            </label>
-            <select
-              name="color_type"
-              onChange={handleFormChange}
-              className="w-full p-3 border border-yellow rounded-lg bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow"
-            >
-              <option value="Black & White">Black & White</option>
-              <option value="Colored">Colored</option>
-            </select>
-          </div>
-
-          {/* Size */}
-          <div>
-            <label className="block text-gray-700 font-semibold mb-1">
-              Paper Size
-            </label>
-            <select
-              name="size"
-              onChange={handleFormChange}
-              className="w-full p-3 border border-yellow rounded-lg bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow"
-            >
-              <option value="A4">A4</option>
-              <option value="A5">A5</option>
-            </select>
-          </div>
-
-          {/* Orientation */}
-          <div>
-            <label className="block text-gray-700 font-semibold mb-1">
-              Orientation
-            </label>
-            <select
-              name="orientation"
-              onChange={handleFormChange}
-              className="w-full p-3 border border-yellow rounded-lg bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-yellow"
-            >
-              <option  value="Portrait">Portrait</option>
-              <option  value="Landscape">Landscape</option>
-            </select>
-          </div>
-
-          {/* Checkout Button */}
-          <div className="md:col-span-2 mt-2">
-            <button
-              type="submit"
-              className="w-full bg-orange text-white font-semibold py-3 rounded-lg hover:bg-orange-700 transition duration-200"
-            >
-              Proceed to Payment
-            </button>
-          </div>
+          {/* Submit Button */}
+          <button
+            type="submit"
+            className="mt-6 w-full bg-orange text-white font-semibold py-3 rounded-lg hover:bg-orange-dark transition duration-200"
+          >
+            Proceed to Payment
+          </button>
         </form>
       </div>
 
       {/* Payment Iframe */}
       {paymentUrl && (
-        <div className="mt-6 w-full max-w-3xl bg-white p-6 rounded-lg shadow-lg">
+        <div className="mt-6 w-full max-w-lg bg-white p-6 rounded-lg shadow-lg">
           <PaymentIframe paymentUrl={paymentUrl} />
         </div>
       )}
@@ -210,14 +118,8 @@ const BillingContent = () => {
 // ✅ Wrap in Suspense to fix Next.js CSR error
 export default function BillingPage() {
   return (
-    <Suspense
-      fallback={
-        <div className="text-center mt-10 text-gray-500">
-          Loading Billing...
-        </div>
-      }
-    >
-      <BillingContent />
+    <Suspense fallback={<div className="text-center mt-10 text-gray-500">Loading Billing...</div>}>
+      <Billing />
     </Suspense>
   );
 }

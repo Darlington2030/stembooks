@@ -7,6 +7,7 @@ import BookCard from "./components/BookCard";
 import Categories from "./components/Categories";
 import SearchBar from "./components/SearchBar";
 import Pagination from "./components/Pagination";
+import Quote from "./components/QuoteForm";
 
 export default function Home() {
   const [books, setBooks] = useState([]);
@@ -54,8 +55,9 @@ export default function Home() {
           <BookCard key={book.id} book={book} />
         ))}
       </div>
-
+      
       <Pagination books={filteredBooks} currentPage={currentPage} setCurrentPage={setCurrentPage} booksPerPage={booksPerPage} />
+      <Quote/>
     </main>
   );
 }
