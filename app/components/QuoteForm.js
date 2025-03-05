@@ -50,7 +50,7 @@ export default function Quote() {
 
     // Dropdown
     const CustomDropdown = ({ options, value, onChange, label }) => (
-        <div className="w-full">
+        <div className="w-full sm:text-lg">
             <label className="block font-semibold text-gray-800 mb-1">{label}</label>
             <Listbox value={value} onChange={onChange}>
                 <div className="relative">
@@ -93,7 +93,7 @@ export default function Quote() {
     );
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-bg px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen mt-[-3rem] flex items-center justify-center bg-gray-bg px-4 sm:px-6 lg:px-8">
             <div className="w-full max-w-2xl bg-white p-6 rounded-lg shadow-lg space-y-6">
                 <h1 className="text-2xl font-bold text-center text-orange">Get Your Book Quote</h1>
 
