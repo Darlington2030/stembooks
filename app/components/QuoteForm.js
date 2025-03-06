@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { Listbox } from "@headlessui/react";
 import { Check, ChevronDown } from "lucide-react";

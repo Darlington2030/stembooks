@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ShoppingCart, Home, Menu, X } from "lucide-react";
+import { ShoppingCart, Home, Menu, X, Book } from "lucide-react";
 import { useCart } from "../context/CartContext";
 
 const Navbar = () => {
@@ -33,6 +33,14 @@ const Navbar = () => {
           >
             <Home className="w-5 h-5" />
             <span>Home</span>
+          </Link>
+
+          <Link
+            href="/quote"
+            className="hidden md:flex items-center space-x-1 text-gray-900 hover:text-orange font-medium transition duration-200"
+          >
+            <Book className="w-5 h-5" />
+            <span>Quote</span>
           </Link>
         </div>
 
@@ -74,6 +82,14 @@ const Navbar = () => {
         >
           <Home className="w-5 h-5" />
           <span>Home</span>
+        </Link>
+        <Link
+          href="/quote"
+          className="flex items-center space-x-2 text-gray-900 hover:text-orange font-medium"
+          onClick={() => setMenuOpen(false)}
+        >
+          <Book className="w-5 h-5" />
+          <span>Quote</span>
         </Link>
         <Link
           href="/cart"
